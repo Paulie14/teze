@@ -1,0 +1,22 @@
+# LaTeX files
+*.bbl
+*.aux
+*.blg
+*.kate-swp
+*.lof
+*.log
+*.lol
+*.lot
+*.out
+*.swp
+*.toc
+*.nav
+*.snm
+*.bib~
+*.tex~
+
+# other files
+*.m~
+*.m~~
+*.txt~
+*.ods#
