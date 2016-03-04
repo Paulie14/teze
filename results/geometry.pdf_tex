@@ -53,8 +53,8 @@
     \put(0.29,0.67){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$D$}}}%
     \put(0.62749438,0.55){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$(\vc{x}_w,\rho_w)$
 }}}%
-    \put(0.117675,0.083){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\tiny $[-100,-100]$}}}%
-    \put(0.74,1.02){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\tiny $[100,100]$}}}%
+    \put(0.117675,0.083){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\tiny $[-2,-2]$}}}%
+    \put(0.88,1.02){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{\tiny $[2,2]$}}}%
     \put(0.021,0.275){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$y$}}}%
     \put(0.26,0.020){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$x$}}}%
   \end{picture}%
