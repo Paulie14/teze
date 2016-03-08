@@ -1,3 +1,8 @@
+%% Edited by Pavel Exner, 2.3.2016
+%% - incorporate some thing from csplainnat.bst to support more like ISO 690
+%% - add ISSN and ISBN
+%% - emphasize Journal title
+%% - add "pp." to journal pages
 %% 
 %% Copyright 2007, 2008, 2009 Elsevier Ltd
 %% 
@@ -57,6 +62,8 @@ ENTRY
     type
     volume
     year
+    isbn
+    issn
     eprint % urlbst
     doi % urlbst
     url % urlbst
@@ -307,8 +314,15 @@ FUNCTION {field.or.null}
   if$
 }
 
+%FUNCTION {emphasize}
+%{ skip$ }
+
 FUNCTION {emphasize}
-{ skip$ }
+{ duplicate$ empty$
+    { pop$ "" }
+    { "\emph{" swap$ * "}" * }
+  if$
+}
 
 FUNCTION {capitalize}
 { "u" change.case$ "t" change.case$ }
@@ -812,11 +826,11 @@ FUNCTION {format.journal.pages}
 { pages empty$
     'skip$
     { duplicate$ empty$
-        { pop$ format.pages }
+        { pop$ format.pages}
         {
           " " *
           format.year * " " *
-          pages n.dashify *
+          format.pages *
         }
       if$
     }
@@ -1077,6 +1091,20 @@ FUNCTION {format.url}
   if$
 }
 
+FUNCTION {format.isbn}
+{ isbn empty$
+    { "" }
+    { new.block "ISBN " isbn * }
+  if$
+}
+
+FUNCTION {format.issn}
+{ issn empty$
+    { "" }
+    { new.block "ISSN " issn * }
+  if$
+}
+
 FUNCTION {format.eprint}
 { eprint empty$
     { "" }
@@ -1176,17 +1204,17 @@ FUNCTION {article}
   title empty$ 'skip$ 'setup.inlinelink if$ % urlbst
   format.title "title" output.check
   crossref missing$
-    { journal
-      "journal" output.check
+    { journal emphasize "journal" output.check
       % add.blank
   before.all 'output.state :=
       format.vol.num.pages output
     }
     { format.article.crossref output.nonnull
-      format.pages output
+      format.journal.pages output
     }
   if$
   format.journal.pages
+  format.issn output
   format.note output
   fin.entry
   write.url
@@ -1207,8 +1235,7 @@ FUNCTION {book}
   title empty$ 'skip$ 'setup.inlinelink if$ % urlbst
   format.btitle "title" output.check
   crossref missing$
-    { format.edition output
-      format.bvolume output
+    { format.bvolume output
       format.number.series output
       format.publisher.address output
     }
@@ -1216,7 +1243,9 @@ FUNCTION {book}
       format.book.crossref output.nonnull
     }
   if$
+  format.edition output
   format.note output
+  format.isbn output
   fin.entry
   write.url
 }
@@ -1286,6 +1315,7 @@ FUNCTION {incollection}
   if$
   format.pages "pages" output.check
   format.note output
+  format.isbn output
   fin.entry
   write.url
 }
@@ -1312,6 +1342,7 @@ FUNCTION {inproceedings}
   if$
   format.pages "pages" output.check
   format.note output
+  format.isbn output
   fin.entry
   write.url
 }
@@ -1372,8 +1403,8 @@ FUNCTION {misc}
   title empty$ 'skip$ 'setup.inlinelink if$ % urlbst
   format.title output
   howpublished output
-  format.note output
   format.date output
+  format.note output
   fin.entry
   write.url
   empty.misc.check
